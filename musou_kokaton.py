@@ -232,7 +232,7 @@ class Score:
     def __init__(self):
         self.font = pg.font.Font(None, 50)
         self.color = (0, 0, 255)
-        self.value = 200
+        self.value = 0
         self.image = self.font.render(f"Score: {self.value}", 0, self.color)
         self.rect = self.image.get_rect()
         self.rect.center = 100, HEIGHT-50
@@ -294,10 +294,10 @@ def main():
                 # 敵機が停止状態に入ったら，intervalに応じて爆弾投下
                 bombs.add(Bomb(emy, bird))
 
-        if key_lst[pg.K_RETURN] and score.value >= 200 and len(gravity) == 0:
+        if key_lst[pg.K_RETURN] and score.value >= 200 and len(gravity) == 0:       #連射対策
             gravity.add(Gravity(400))
             score.value -= 200
-            
+
         for gra, hit_emys in pg.sprite.groupcollide(gravity, emys, False, True).items():
             for emy in hit_emys:
                 exps.add(Explosion(emy, 100))
